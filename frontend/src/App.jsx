@@ -128,32 +128,17 @@ function App() {
 
   if (loading) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-[#1f1740]">
-        <div className="loader mb-4"></div>
-        <h2 className="text-2xl text-[#a678ff] font-bold">Processing audio, please wait...</h2>
-        <style>{`
-          .loader {
-            border: 8px solid #2d2360;
-            border-top: 8px solid #a678ff;
-            border-radius: 50%;
-            width: 64px;
-            height: 64px;
-            animation: spin 1s linear infinite;
-          }
-          @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-          }
-        `}</style>
+      <div className="loading-screen">
+        <div className="loader"></div>
+        <h2 className="loading-text">Processing audio, please wait...</h2>
       </div>
     );
   }
 
   return (
-    <div className="page_wrapper" style={{ minHeight: '100vh', height: '100vh', overflow: 'hidden' }}>
-      <div className="bg-red-500 text-white p-4">Tailwind Test</div>
+    <div className="page-wrapper">
+      <div className="tailwind-test">Tailwind Test</div>
       <Navbar />
-      {/* Only show Popup on home page */}
       {window.location.pathname === '/' && <Popup />}
       <Routes>
         <Route
@@ -166,19 +151,20 @@ function App() {
                 gradient
                 gradientWidth={120}
                 gradientColor="#1f1740"
-                className="pt-4 pb-3"
+                className="marquee"
               >
-                <span className="flex items-center gap-2 text-5xl font-bold text-white drop-shadow-lg">
-                  Turning up the <span className="text-[#a678ff] font-extrabold animate-pulse">voices</span> that go<span className="italic text-blue-300 align-bottom">unheard</span>
+                <span className="marquee-text">
+                  Turning up the <span className="marquee-voices">voices</span> that go
+                  <span className="marquee-unheard">unheard</span>
                 </span>
               </Marquee>
-              <div className="content_wrapper">
-                <div className="mic_record bg-[#2c2153] rounded-xl shadow-lg p-8 flex flex-col items-center gap-4 border-l-4 border-[#a678ff]">
-                  <p className="text-2xl font-bold text-[#a678ff] mb-2">🎙️ Record with Mic</p>
+              <div className="content-wrapper">
+                <div className="mic-record">
+                  <p className="mic-title">🎙️ Record with Mic</p>
                   {!recording && (
                     <button
                       onClick={startRecording}
-                      className="bg-[#a678ff] hover:bg-[#7c4dff] text-white font-semibold py-2 px-6 rounded-lg shadow transition-colors duration-200 text-lg"
+                      className="mic-btn"
                     >
                       Start Recording
                     </button>
@@ -186,25 +172,26 @@ function App() {
                   {recording && (
                     <button
                       onClick={stopRecording}
-                      className="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-6 rounded-lg shadow transition-colors duration-200 text-lg"
+                      className="mic-btn mic-btn-stop"
                     >
                       Stop Recording
                     </button>
                   )}
                   {audioURL && (
-                    <div className="mt-4 flex flex-col items-center gap-2">
-                      <audio src={audioURL} controls className="w-48" />
+                    <div className="mic-upload">
+                      <audio src={audioURL} controls className="mic-audio" />
+                      <br />
                       <button
                         onClick={uploadAudio}
-                        className="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg shadow transition-colors duration-200 text-base"
+                        className="mic-upload-btn"
                       >
                         Upload & Transcribe
                       </button>
                     </div>
                   )}
                 </div>
-                <div className="drag_drop bg-[#2c2153] rounded-xl shadow-lg p-8 flex flex-col items-center gap-4 border-l-4 border-[#a678ff]">
-                  <p className="text-2xl font-bold text-[#a678ff] mb-2">📤 Drag & Drop Upload</p>
+                <div className="drag-drop">
+                  <p className="drag-title">📤 Drag & Drop Upload</p>
                   <input
                     type="file"
                     accept="audio/*"
@@ -216,7 +203,7 @@ function App() {
                     onClick={() => fileInputRef.current && fileInputRef.current.click()}
                     onDrop={handleDrop}
                     onDragOver={e => e.preventDefault()}
-                    className="border-2 border-dashed border-[#a678ff] p-8 rounded-lg cursor-pointer bg-[#1f1740] text-[#a678ff] text-lg text-center w-64 hover:bg-[#251a3a] transition-colors duration-200"
+                    className="drag-drop-box"
                   >
                     Click or drag & drop an audio file here
                   </div>
@@ -229,7 +216,7 @@ function App() {
         <Route path="/overview" element={<Overview />} />
         <Route path="/result" element={<Result data={resultData} />} />
       </Routes>
-      <footer>© 2025 MyTurn. All rights reserved.</footer>
+      <footer className="footer">© 2025 MyTurn. All rights reserved.</footer>
     </div>
   );
 }

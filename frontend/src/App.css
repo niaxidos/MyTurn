@@ -9,12 +9,21 @@ header {
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
 }
 
-body {
-  background-color: #1f1740;
-  padding: 0;
+body, html {
   margin: 0;
-  color: white;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  padding: 0;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  background: #1f1740;
+  color: #fff;
+}
+
+.page-wrapper {
+  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
+  background: #1f1740;
+  display: flex;
+  flex-direction: column;
 }
 
 .page_wrapper {
@@ -34,14 +43,63 @@ body {
   margin-top: 20px;
 }
 
+.content-wrapper {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
 footer {
- text-align: center;
-  padding: 16px;
-  background-color: #2c2153;
+  text-align: center;
+  padding: 0.5rem 0;
   color: #a678ff;
-  font-size: 0.9rem;
-  border-top: 1px solid #a678ff;
-  margin-top: 20px;
+  font-size: 0.95rem;
+  margin-top: auto;
+  background: transparent;
+  line-height: 1.2;
+  min-height: unset;
+}
+
+.tailwind-test {
+  background: #e53e3e;
+  color: #fff;
+  padding: 1rem;
+  font-weight: bold;
+  display: none; /* Hide this unless you want to debug */
+}
+
+.marquee {
+  padding-top: 1rem;
+  padding-bottom: 0.75rem;
+}
+
+.marquee-text {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 3rem;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 2px 8px #0004;
+}
+
+.marquee-voices {
+  color: #a678ff;
+  font-weight: 900;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
+.marquee-unheard {
+  font-style: italic;
+  color: #7dd3fc;
+  align-self: flex-end;
 }
 
 .mic_record {
@@ -56,6 +114,81 @@ footer {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
+.mic-record, .drag-drop {
+  background: #2c2153;
+  border-radius: 1rem;
+  box-shadow: 0 4px 24px #0002;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  border-left: 4px solid #a678ff;
+  min-width: 340px;
+}
+
+.mic-title, .drag-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #a678ff;
+  margin-bottom: 0.5rem;
+}
+
+.mic_btn {
+  background: #a678ff;
+  color: #fff;
+  font-weight: 600;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 8px #0002;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.mic_btn:hover {
+  background: #7c4dff;
+}
+
+.mic_btn_stop {
+  background: #e53e3e;
+}
+
+.mic_btn_stop:hover {
+  background: #c53030;
+}
+
+.mic_upload {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.mic-upload-btn {
+  background: #38a169;
+  color: #fff;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 8px #0002;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 0.5rem;
+}
+
+.mic_audio {
+  width: 12rem;
+}
+
+.mic-upload-btn:hover {
+  background: #276749;
+}
+
 .drag_drop {
   width: 32vw;
   height: 40vh;
@@ -68,18 +201,21 @@ footer {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-/* Loader spinner for results page */
-.loader {
-  border: 6px solid #f3f3f3;
-  border-top: 6px solid #a678ff;
-  border-radius: 50%;
-  width: 48px;
-  height: 48px;
-  animation: spin 1s linear infinite;
+.drag-drop-box {
+  border: 2px dashed #a678ff;
+  padding: 2rem;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  background: #1f1740;
+  color: #a678ff;
+  font-size: 1.1rem;
+  text-align: center;
+  width: 16rem;
+  transition: background 0.2s;
 }
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+
+.drag-drop-box:hover {
+  background: #251a3a;
 }
 
 .results_wrapper {
@@ -88,6 +224,36 @@ footer {
   align-items: center;
   justify-content: center;
   min-height: 60vh;
+}
+
+/* Loader spinner for results page */
+.loader {
+  border: 8px solid #2d2360;
+  border-top: 8px solid #a678ff;
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: #1f1740;
+}
+
+.loading-text {
+  font-size: 2rem;
+  color: #a678ff;
+  font-weight: bold;
 }
 
 /* Custom scrollbar for transcript (matches Info page) */

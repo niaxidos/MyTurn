@@ -12,6 +12,7 @@ import {
   ArcElement,
 } from 'chart.js';
 import data from '../data.json';
+import '../Overview.css';
 
 ChartJS.register(
   CategoryScale,
@@ -127,24 +128,13 @@ const Overview = () => {
     ],
   };
 
-  return (
-    <div
-      className="min-h-screen flex flex-col"
-      style={{ backgroundColor: '#1f1740' }}
-    >
-      <h1 className="text-5xl font-bold text-[#a678ff] mb-4 text-center">
-        Overview
-      </h1>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-6xl mx-auto w-full flex-1 py-4 px-0 overflow-auto">
-        {/* Line Chart Tile - spans two rows on desktop */}
-        <div
-          style={{ backgroundColor: '#2d2360' }}
-          className="rounded-2xl shadow-lg flex flex-col items-center justify-center md:row-span-2 md:col-span-2 p-2 md:p-3 h-full"
-        >
-          <h2 className="text-xl font-semibold mb-2 text-[#a678ff]">
-            Speaking Time Over Time
-          </h2>
-          <div className="w-full h-full" style={{ minHeight: '320px' }}>
+    return (
+    <div className="overview-root">
+      <h1 className="overview-title">Overview</h1>
+      <div className="overview-grid">
+        <div className="overview-tile" style={{ gridColumn: 'span 2' }}>
+          <h2 className="overview-tile-title">Speaking Time Over Time</h2>
+          <div style={{ minHeight: '320px', width: '100%' }}>
             <Line
               data={chartData}
               options={{ ...options, maintainAspectRatio: false }}
@@ -152,47 +142,30 @@ const Overview = () => {
             />
           </div>
         </div>
-        {/* Pie Chart Tile */}
-        <div
-          style={{ backgroundColor: '#2d2360' }}
-          className="rounded-2xl shadow-lg flex flex-col items-center justify-center p-1 md:p-2 h-full"
-        >
-          <h2 className="text-xl font-semibold mb-2 text-[#a678ff]">
-            Average Speaking %
-          </h2>
-          <div className="w-32 h-32 md:w-60 md:h-60 flex items-center justify-center">
+        <div className="overview-tile">
+          <h2 className="overview-tile-title">Average Speaking %</h2>
+          <div style={{ width: '8rem', height: '8rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <Pie
               data={pieData}
               options={{ cutout: '70%', maintainAspectRatio: false }}
             />
           </div>
         </div>
-        {/* Animated Counter Tile */}
-        <div
-          style={{ backgroundColor: '#2d2360' }}
-          className="rounded-2xl shadow-lg flex flex-col items-center justify-center p-2 md:p-3"
-        >
-          <h2 className="text-xl font-semibold mb-2 text-[#a678ff]">
-            Total Meetings
-          </h2>
-          <span
-            ref={counterRef}
-            className="flex items-center justify-center rounded-full bg-[#a678ff] text-white font-bold text-4xl md:text-5xl w-20 h-20 md:w-24 md:h-24 shadow mb-2"
-            style={{ minWidth: '5rem', minHeight: '5rem' }}
-          >
+        <div className="overview-tile">
+          <h2 className="overview-tile-title">Total Meetings</h2>
+          <span ref={counterRef} className="overview-counter">
             {displayedMeetings}
           </span>
-          <span className="text-lg md:text-xl text-gray-200 font-medium">
-            You have analyzed{' '}
-            <span className="font-bold text-[#a678ff]">meetings</span>.
+          <span style={{ color: '#fff', fontWeight: '500' }}>
+            You have analyzed <span style={{ color: '#a678ff', fontWeight: 'bold' }}>meetings</span>.
           </span>
         </div>
       </div>
-      <footer className="w-full text-center text-gray-400 py-4 mt-4 border-t border-[#2d2360]">
+      <footer className="overview-footer">
         © 2025 MyTurn. All rights reserved.
       </footer>
     </div>
   );
-};
+}
 
 export default Overview;
