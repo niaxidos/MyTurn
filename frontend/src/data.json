@@ -1,0 +1,12 @@
+[
+  { "male": 91, "female": 9, "date": "2025-01-15" },
+  { "male": 83, "female": 17, "date": "2025-02-10" },
+  { "male": 77, "female": 23, "date": "2025-03-05" },
+  { "male": 70, "female": 30, "date": "2025-04-20" },
+  { "male": 74, "female": 26, "date": "2025-05-15" },
+  { "male": 77, "female": 23, "date": "2025-06-01" },
+  { "male": 61, "female": 39, "date": "2025-06-10" },
+  { "male": 63, "female": 37, "date": "2025-06-15" },
+  { "male": 56, "female": 44, "date": "2025-06-20" },
+  { "male": 52, "female": 48, "date": "2025-06-25" }
+]
