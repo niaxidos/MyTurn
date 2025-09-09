@@ -10,3 +10,4 @@ pyaudio
 librosa
 utils
 pydub
+dotenv

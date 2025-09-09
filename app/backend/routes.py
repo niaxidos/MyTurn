@@ -1,3 +1,11 @@
+'''
+We used model.h , which was trained from a model found in this link:
+https://github.com/x4nth055/gender-recognition-by-voice
+
+Thank you for allowing us to use this code for our product.
+'''
+
+
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import logging
@@ -90,14 +98,14 @@ def load_model(audio_file):
     return result
 
 def transcribe_file(audio_file):
-    from utils import load_data, split_data, create_model
+    from utils import create_model
 
     audio = AudioSegment.from_file(audio_file)
 
     # construct the model
     model = create_model()
     # load the saved/trained weights using an absolute path
-    model_path = os.path.join(os.path.dirname(__file__), "results", "model.h5")
+    model_path = os.path.join(os.path.dirname(__file__), "model.h5")
     model.load_weights(model_path)
     # extract features and reshape it
     features = extract_feature(audio_file, mel=True).reshape(1, -1)
@@ -122,7 +130,8 @@ def transcribe_file(audio_file):
             end_time = timedelta(seconds=int(segment["end"]))
             speaker = segment.get("speaker", "UNKNOWN")
             text = segment.get("text", "").strip()
-            chunk_file = f"chunk_{i}.wav"
+            os.makedirs("chunks", exist_ok=True)
+            chunk_file = f"chunks/chunk_{i}.wav"
             chunk.export(chunk_file, format="wav")  # Save the chunk as a separate file
             print(f"Chunk {i}: {segment['text']}")   # Print the transcribed text for the chunk
 
@@ -161,9 +170,9 @@ def transcribe_file(audio_file):
     information: dict = {
             "female_ratio": f_sec/speech_length,
             "male_ratio": m_sec/speech_length,
-            "female_seconds": f_sec,
-            "male_seconds": m_sec,
-            "total_seconds": speech_length,
+            "female_seconds": f"{f_sec:.1f}",
+            "male_seconds": f"{m_sec:.1f}",
+            "total_seconds": f"{speech_length:.1f}",
             "transcript": transcript_text,
     }
 

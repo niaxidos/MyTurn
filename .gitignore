@@ -26,6 +26,8 @@
 
 .env
 .venv
+chunks/
+
 app/backend/__pycache__
 NewBackEnd/__pycache__
 npm-debug.log*
