@@ -1,0 +1,12 @@
+whisperx
+flask
+flask_cors
+tensorflow
+scikit-learn
+numpy
+pandas
+tqdm
+pyaudio
+librosa
+utils
+pydub
