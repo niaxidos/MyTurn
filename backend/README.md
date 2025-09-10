@@ -10,7 +10,9 @@ Windows: `python -m venv venvname`
 2. Run the virtual environment. 
 Linux/MacOS: `source venvname/bin/activate`.
 Windows: `venvname/Scripts/Activate`.
-3. Download dependencies from requirements.txt by doing: `pip install -r requirements.txt`
+3. Download dependencies from requirements.txt by 
+    - going into the backend folder by doing `ls backend`
+    - doing: `pip install -r requirements.txt`
 4. run `npm i` to make sure you have all dependencies downloaded
 5. run `npm start`/ `npm run dev`
 6. run `routes.py`. 
@@ -38,3 +40,10 @@ This repository is about building a deep learning model using TensorFlow 2 to re
 - Filtered only the samples that are labeled in `genre` field.
 - Balanced the dataset so that number of female samples are equal to male.
 - Used [Mel Spectrogram](https://librosa.github.io/librosa/generated/librosa.feature.melspectrogram.html) feature extraction technique to get a vector of a fixed length from each voice sample, the [data](data/) folder contain only the features and not the actual mp3 samples (the dataset is too large, about 13GB).
+
+
+To run the Docker:
+1. Make sure you have Docker Desktop downloaded and running. 
+2. To create image run: `docker build -t myturn .`
+3. To create container run: `docker run -p 8000:8000 myturn`
+    - Make sure that your port is not already in use. If it is kill the port and rerun the docker command. 
